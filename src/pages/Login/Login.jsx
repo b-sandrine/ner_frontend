@@ -22,7 +22,7 @@ const Login = () => {
         axios.post("http://localhost:3000/api/users/login", user)
         .then((response) => {
             console.log(response)
-            navigate('/dashboard')
+            navigate('/dashboard/owners')
         })
         .catch(err => {
             console.log(err.response.data)
