@@ -1,7 +1,7 @@
 .modal {
     position: absolute;
     width: 730px;
-    height: 90%;
+    height: auto;
     left: calc(50% - 730px/2);
     top: 50px;
     background: #FFFFFF;

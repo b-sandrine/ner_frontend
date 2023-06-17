@@ -2,24 +2,25 @@ import { useEffect, useState } from 'react'
 import './Vehicles.css'
 import $ from 'jquery'
 import axios from 'axios';
+import AddVehicle from '../../models/AddVehicle/AddVehicle';
 
 const Vehicles = () => {
     const [data, setData] = useState([]);
-    const [isOpen,setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
-    function openModal () {
+    function openModal() {
         setIsOpen(true)
     }
 
-    function closeModal () {
+    function closeModal() {
         setIsOpen(false)
     }
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/vehicles/create")
+        axios.get("http://localhost:3000/api/vehicles/list")
             .then((response) => response.data)
             .then((data) => {
-                setData(data)
+                setData(data.result)
                 console.log(data)
             })
             .catch(err => console.log(err))
@@ -29,40 +30,45 @@ const Vehicles = () => {
         const $table = $('#myTable');
         const $tbody = $table.find('tbody');
 
-        data.forEach((item) => {
+        Object.keys(data).forEach((key) => {
+            const item = data[key];
             const row = `
-      <tr>
-        <td>${item.fullnames}</td>
-        <td>${item.email}</td>
-        <td>${item.nid}</td>
-        <td>${item.phoneNumber}</td>
-        <td>${item.address}</td>
-      </tr>
-    `;
+              <tr>
+                <td>${item.chasisNumber}</td>
+                <td>${item.manufacturer}</td>
+                <td>${item.year}</td>
+                <td>${item.price}</td>
+                <td>${item.plateNumber}</td>
+                <td>${item.model}</td>
+                <td>${item.owner}</td>
+              </tr>
+            `;
 
             $tbody.append(row);
         });
     }, [data]);
-    
+
     return (
         <div className="vehicles--container">
             <div className="header">
-                <p>Users</p>
-                <button onClick={openModal}>Add New User</button>
-                {isOpen ? 
-                <div className="modal--overlay">
-                    <Adduser onClose={closeModal}/>
-                </div> : null}
+                <p>Vehicles</p>
+                <button onClick={openModal}>Add New Vehicle</button>
+                {isOpen ?
+                    <div className="modal--overlay">
+                        <AddVehicle onClose={closeModal} />
+                    </div> : null}
             </div>
             <div className="table">
                 <table id="myTable">
                     <thead>
                         <tr>
-                            <th>Names</th>
-                            <th>Email</th>
-                            <th>NID</th>
-                            <th>Phone Number</th>
-                            <th>Address</th>
+                            <th>Chasis Number</th>
+                            <th>Manufacture Company</th>
+                            <th>Manufacture Year</th>
+                            <th>Price</th>
+                            <th>Plate Number</th>
+                            <th>Model Name</th>
+                            <th>Owner</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

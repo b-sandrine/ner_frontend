@@ -33,7 +33,7 @@
     margin: 10px 0;
 }
 
-.modal .modal-content .form input {
+.modal .modal-content .form input, .modal .modal-content .form select {
     border: none;
     width: 566px;
     height: 43px;

@@ -1,6 +1,7 @@
 import AddOwner from '../../models/AddOwner/AddOwner'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+
 import $ from 'jquery'
 import './Owners.css'
 
@@ -51,9 +52,8 @@ export default function Owners() {
                 <p>Owners</p>
                 <button onClick={openModal}>Add New Owner</button>
                 {isOpen ?
-                    <div className="modal--overlay">
                         <AddOwner onClose={closeModal} />
-                    </div> : null}
+                 : null}
             </div>
             <div className="table">
                 <table id="myTable">
