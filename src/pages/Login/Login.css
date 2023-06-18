@@ -91,3 +91,124 @@
     color: #40A8EA;
     margin-left: 5px;
 }
+
+@media(max-width: 428px) {
+    .login--container {
+        display: grid;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login--container .static img {
+        display: none;
+    }
+
+    .login--container .static .overlay {
+        display: none;
+    }
+
+    .login--container .static {
+        text-align: center;
+    }
+
+    .login--container .static .text-holder {
+        font-style: normal;
+        font-size: 16px;
+        color: #000;
+        position: absolute;
+        top: -300px;
+        left: -24px;
+    }
+
+    .login--container .static .text-holder h1 {
+        display: none;
+    }
+
+    .login--container .content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-top: 20px;
+    }
+
+    .login--container .content img {
+        margin-top: 20px;
+    }
+
+    .login--container .content .form {
+        width: 100%;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px 30px;
+    }
+
+    .login--container .content .form input,
+    .login--container .content .form input[type=submit] {
+        width: 300px;
+    }
+}
+
+@media (min-width: 430px)and (max-width: 810px) {
+    .login--container {
+        display: grid;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login--container .static img {
+        display: none;
+    }
+
+    .login--container .static .overlay {
+        display: none;
+    }
+
+    .login--container .static {
+        text-align: center;
+        margin: 0;
+        width: 100%;
+        padding: 0;
+        background-color: red;
+    }
+
+    .login--container .static .text-holder {
+        font-style: normal;
+        font-size: 16px;
+        color: #000;
+        position: absolute;
+        top: -380px;
+        left: 180px;
+    }
+
+    .login--container .static .text-holder h1 {
+        display: none;
+    }
+
+    .login--container .content {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        left: 0;
+        margin-top: 20px;
+    }
+
+    .login--container .content img {
+        margin-top: 20px;
+    }
+
+    .login--container .content .form {
+        width: 100%;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px 30px;
+    }
+
+    .login--container .content .form input,
+    .login--container .content .form input[type=submit] {
+        width: 80%;
+    }
+}

@@ -33,3 +33,11 @@
 .welcome--container .buttons button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
 }
+
+@media (max-width: 396px) {
+    .welcome--container h1 {
+        font-size: 2.2em;
+        line-height: 1.1;
+    }
+    
+}
