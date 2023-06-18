@@ -9,11 +9,12 @@
     width: 648px;
     margin-right: 120px;
     text-align: center;
+    position: fixed;
 }
 
 .login--container .static img {
     width: 100%;
-    height: 782.5px;
+    height: 100%;
     margin: 0;
     padding: 0;
 }
