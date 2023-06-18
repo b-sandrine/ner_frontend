@@ -1,6 +1,7 @@
 import './AddVehicle.css'
 import { useState , useEffect} from 'react';
 import axios from 'axios';
+import authService from '../../auth/authService';
 
 const AddVehicle = ({ isOpen, onClose }) => {
     const [vehicle, setVehicle] = useState({
@@ -21,7 +22,11 @@ const AddVehicle = ({ isOpen, onClose }) => {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/owners/list")
+        axios.get("http://localhost:3000/api/owners/list",{
+            headers: {
+                token: `Bearer ${authService.getAuthToken()}`
+            }
+        },)
             .then((response) => response.data)
             .then((data) => {
                 setUsers(data.result)
@@ -32,7 +37,11 @@ const AddVehicle = ({ isOpen, onClose }) => {
 
     function handleNavigate() {
         console.log(vehicle)
-        axios.post('http://localhost:3000/api/vehicles/create', vehicle)
+        axios.post('http://localhost:3000/api/vehicles/create', vehicle, {
+            headers: {
+                token: `Bearer ${authService.getAuthToken()}`
+            }
+        })
         .then((response) => {
             console.log(response)
         })

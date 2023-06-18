@@ -1,7 +1,8 @@
 import './AddOwner.css'
 import { useState } from 'react';
 import axios from 'axios';
-
+import authService from '../../auth/authService';
+import { useNavigate } from 'react-router';
 const AddOwner = ({ isOpen, onClose }) => {
     const [user, setUser] = useState({
         fullnames: "",
@@ -10,6 +11,8 @@ const AddOwner = ({ isOpen, onClose }) => {
         address: "",
     })
 
+    const [err, setErr] = useState('');
+    const navigate = useNavigate();
     function handleOnChange(e) {
         e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -17,22 +20,30 @@ const AddOwner = ({ isOpen, onClose }) => {
 
     function handleNavigate() {
         console.log(user)
-        axios.post('http://localhost:3000/api/owners/create', user)
+        axios.post('http://localhost:3000/api/owners/create', user, {
+            headers: {
+                token: authService.getAuthToken()
+            }
+        })
             .then((response) => {
                 console.log(response)
+                onClose();
             })
             .catch((error) => {
+                // alert(error.response.data.error)
                 console.log(error)
+                setErr(error.response.data.error)
             })
     }
     return (
         <div className="modal--overlay">
-            <div className={`modal ${isOpen ? 'modal-open' : ''}`}>
+            <div className={`${isOpen ? 'modal-open' : 'model'}`}>
                 <div className="modal-content">
                     <div className="close">
                         <span onClick={onClose}>&times;</span>
                     </div>
                     <h2>Add New Car Owner</h2>
+                    {err && <p className='error'>{err}</p>}
                     <div className="form">
                         <input type="text" name="fullnames" id="" placeholder='Full Names' value={user.fullnames} onChange={handleOnChange} />
                         <input type="number" name="NID" id="" placeholder='National Id' value={user.NID} onChange={handleOnChange} />
@@ -45,6 +56,7 @@ const AddOwner = ({ isOpen, onClose }) => {
                     </div>
                 </div>
             </div>
+            {err === 'unauthorized' && navigate('/login')}
         </div>
     );
 };

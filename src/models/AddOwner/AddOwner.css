@@ -1,4 +1,4 @@
-.modal {
+.modal-open {
     position: absolute;
     width: 730px;
     height: auto;
@@ -8,12 +8,12 @@
     border-radius: 30px;
 }
 
-.modal .modal-content {
+.modal-open .modal-content {
     text-align: center;
     padding: 60px 20px;
 }
 
-.modal .modal-content .close {
+.modal-open .modal-content .close {
     width: 40px;
     height: 40px;
     background-color: #55A8DA;
@@ -26,14 +26,14 @@
     top: 10px;
 }
 
-.modal .modal-content .form {
+.modal-open .modal-content .form {
     display: grid;
     place-items: center;
     width: 100%;
     margin: 10px 0;
 }
 
-.modal .modal-content .form input {
+.modal-open .modal-content .form input {
     border: none;
     width: 566px;
     height: 43px;
@@ -45,7 +45,7 @@
     border-radius: 5px;
 }
 
-.modal .modal-content .form .buttons .success {
+.modal-open .modal-content .form .buttons .success {
     width: 256px;
     color: white;
     font-weight: 500;
@@ -54,13 +54,17 @@
     margin-left: 50px;
 }
 
-.modal .modal-content .form .buttons .cancel {
+.modal-open .modal-content .form .buttons .cancel {
     width: 256px;
     color: white;
     font-weight: 500;
     background: #F9B520;
     border-radius: 10px;
 }
-.modal .modal-content .form .buttons {
+.modal-open .modal-content .form .buttons {
     display: flex;
+}
+
+.model {
+    display: none;
 }

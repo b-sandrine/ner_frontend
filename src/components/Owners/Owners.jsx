@@ -62,7 +62,7 @@ export default function Owners() {
                 <p>Owners</p>
                 <button onClick={openModal}>Add New Owner</button>
                 {isOpen ?
-                        <AddOwner onClose={closeModal} />
+                        <AddOwner isOpen={openModal} onClose={closeModal} />
                  : null}
             </div>
             <div className="table">
