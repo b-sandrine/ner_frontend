@@ -8,7 +8,8 @@ import './Owners.css'
 export default function Owners() {
     const [data, setData] = useState([]);
     const [isOpen, setIsOpen] = useState(false)
-
+    const token = localStorage.getItem('token')
+    const [err, setErr] = useState('')
     function openModal() {
         setIsOpen(true)
     }
@@ -18,13 +19,20 @@ export default function Owners() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/owners/list")
+        axios.get("http://localhost:3000/api/owners/list", {
+            headers: {
+                token: `Bearer ${token}`
+            }
+        })
             .then((response) => response.data)
             .then((data) => {
                 setData(data.result)
                 console.log(data.result)
             })
-            .catch(err => console.log(err))
+            .catch(error => {
+                console.log(error)
+                setErr(error.response.data.error)
+            })
     }, [])
 
     useEffect(() => {
@@ -48,6 +56,7 @@ export default function Owners() {
       
     return (
         <div className="owners--container">
+            {err && alert(`${err}`)}
             <div className="header">
                 <p>Owners</p>
                 <button onClick={openModal}>Add New Owner</button>

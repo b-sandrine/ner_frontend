@@ -21,8 +21,10 @@ const Login = () => {
     function handleNavigate() {
         axios.post("http://localhost:3000/api/users/login", user)
         .then((response) => {
-            console.log(response)
+            const token = response.data.payload.token;
+            console.log(token)
             navigate('/dashboard/owners')
+            localStorage.setItem('token', token)
         })
         .catch(err => {
             console.log(err.response.data)
