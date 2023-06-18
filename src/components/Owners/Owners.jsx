@@ -1,6 +1,7 @@
 import AddOwner from '../../models/AddOwner/AddOwner'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import authService from '../../auth/authService';
 
 import $ from 'jquery'
 import './Owners.css'
@@ -8,8 +9,8 @@ import './Owners.css'
 export default function Owners() {
     const [data, setData] = useState([]);
     const [isOpen, setIsOpen] = useState(false)
-    const token = localStorage.getItem('token')
     const [err, setErr] = useState('')
+    
     function openModal() {
         setIsOpen(true)
     }
@@ -21,7 +22,7 @@ export default function Owners() {
     useEffect(() => {
         axios.get("http://localhost:3000/api/owners/list", {
             headers: {
-                token: `Bearer ${token}`
+                token: `Bearer ${authService.getAuthToken()}`
             }
         })
             .then((response) => response.data)

@@ -3,10 +3,15 @@ import './Vehicles.css'
 import $ from 'jquery'
 import axios from 'axios';
 import AddVehicle from '../../models/AddVehicle/AddVehicle';
+import authService from '../../auth/authService';
 
 const Vehicles = () => {
     const [data, setData] = useState([]);
     const [isOpen, setIsOpen] = useState(false)
+
+    // function getToken () {
+    //     const token = authService.
+    // }
 
     function openModal() {
         setIsOpen(true)
@@ -16,8 +21,14 @@ const Vehicles = () => {
         setIsOpen(false)
     }
 
+    {console.log("The token is" + authService.getAuthToken)}
+
     useEffect(() => {
-        axios.get("http://localhost:3000/api/vehicles/list")
+        axios.get("http://localhost:3000/api/vehicles/list", {
+            headers: {
+                token: `Bearer ${authService.getAuthToken()}`
+            }
+        })
             .then((response) => response.data)
             .then((data) => {
                 setData(data.result)
