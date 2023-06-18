@@ -3,6 +3,7 @@ import logo from '../../assets/LOGO.png'
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import axios from 'axios';
+import authService from '../../auth/authService';
 import './Login.css'
 const Login = () => {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Login = () => {
             const token = response.data.payload.token;
             console.log(token)
             navigate('/dashboard/owners')
-            localStorage.setItem('token', token)
+            authService.storeAuthToken(token)
         })
         .catch(err => {
             console.log(err.response.data)

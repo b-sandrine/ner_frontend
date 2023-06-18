@@ -13,7 +13,7 @@ const removeAuthToken = () => {
 
 const isAuthenticated = () => {
     const token = getAuthToken();
-    return !!token();
+    return !!token;
 }
 
 const authService = {
