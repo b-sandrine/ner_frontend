@@ -2,8 +2,7 @@ import './AddOwner.css'
 import { useState } from 'react';
 import axios from 'axios';
 import authService from '../../auth/authService';
-import { useNavigate } from 'react-router';
-const AddOwner = ({ isOpen, onClose }) => {
+const AddOwner = ({ isOpen, onClose, onSuccess }) => {
     const [user, setUser] = useState({
         fullnames: "",
         NID: '',
@@ -12,7 +11,6 @@ const AddOwner = ({ isOpen, onClose }) => {
     })
 
     const [err, setErr] = useState('');
-    const navigate = useNavigate();
     function handleOnChange(e) {
         e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -22,11 +20,12 @@ const AddOwner = ({ isOpen, onClose }) => {
         console.log(user)
         axios.post('http://localhost:3000/api/owners/create', user, {
             headers: {
-                token: authService.getAuthToken()
+                token: `Bearer ${authService.getAuthToken()}`
             }
         })
             .then((response) => {
                 console.log(response)
+                onSuccess();
                 onClose();
             })
             .catch((error) => {
@@ -56,7 +55,7 @@ const AddOwner = ({ isOpen, onClose }) => {
                     </div>
                 </div>
             </div>
-            {err === 'unauthorized' && navigate('/login')}
+            {/* {err === 'unauthorized' && navigate('/login')} */}
         </div>
     );
 };

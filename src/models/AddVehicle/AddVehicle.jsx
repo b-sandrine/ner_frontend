@@ -2,6 +2,7 @@ import './AddVehicle.css'
 import { useState , useEffect} from 'react';
 import axios from 'axios';
 import authService from '../../auth/authService';
+import useCarOwners from '../../stores/OwnerOps';
 
 const AddVehicle = ({ isOpen, onClose }) => {
     const [vehicle, setVehicle] = useState({
@@ -13,8 +14,8 @@ const AddVehicle = ({ isOpen, onClose }) => {
         model: "",
         createdBy: "",
     })
-    const [users, setUsers] = useState([])
-    const [err,setErr] = useState("")
+
+    const {err,data, getAllCarOwner} = useCarOwners();
 
     function handleOnChange(e) {
         e.preventDefault();
@@ -22,21 +23,11 @@ const AddVehicle = ({ isOpen, onClose }) => {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/owners/list",{
-            headers: {
-                token: `Bearer ${authService.getAuthToken()}`
-            }
-        },)
-            .then((response) => response.data)
-            .then((data) => {
-                setUsers(data.result)
-            })
-            .catch(err => console.log(err))
+        getAllCarOwner()
     }, [])
 
 
     function handleNavigate() {
-        console.log(vehicle)
         axios.post('http://localhost:3000/api/vehicles/create', vehicle, {
             headers: {
                 token: `Bearer ${authService.getAuthToken()}`
@@ -67,8 +58,8 @@ const AddVehicle = ({ isOpen, onClose }) => {
                     <input type="text" name="model" id="" placeholder='Model Name' value={vehicle.model} onChange={handleOnChange} />
                     <select name="createdBy" onChange={handleOnChange}>
                         <option>Choose Owner</option>
-                        {users.map((user => (
-                            <option key={user._id} value={user._id} >{user.fullnames}</option>
+                        {data.map((item => (
+                            <option key={item._id} value={item._id} >{item.fullnames}</option>
                         )))}
                     </select>
                     <div className="buttons">
