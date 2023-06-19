@@ -28,7 +28,7 @@ const Vehicles = () => {
                 <button onClick={openModal}>Add New Vehicle</button>
                 {isOpen ?
                     <div className="modal--overlay">
-                        <AddVehicle onClose={closeModal} />
+                        <AddVehicle onSuccess={() => [getVehicles()]} onClose={closeModal} />
                     </div> : null}
             </div>
             <div className="table">

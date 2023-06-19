@@ -4,7 +4,7 @@ import axios from 'axios';
 import authService from '../../auth/authService';
 import useCarOwners from '../../stores/OwnerOps';
 
-const AddVehicle = ({ isOpen, onClose }) => {
+const AddVehicle = ({ isOpen, onClose, onSuccess }) => {
     const [vehicle, setVehicle] = useState({
         chasisNumber: "",
         manufacturer: "",
@@ -15,7 +15,11 @@ const AddVehicle = ({ isOpen, onClose }) => {
         createdBy: "",
     })
 
-    const {err,data, getAllCarOwner} = useCarOwners();
+    const {
+        err,
+        getAllCarOwners,
+        data
+    } = useCarOwners();
 
     function handleOnChange(e) {
         e.preventDefault();
@@ -23,7 +27,7 @@ const AddVehicle = ({ isOpen, onClose }) => {
     }
 
     useEffect(() => {
-        getAllCarOwner()
+        getAllCarOwners()
     }, [])
 
 
@@ -35,10 +39,12 @@ const AddVehicle = ({ isOpen, onClose }) => {
         })
         .then((response) => {
             console.log(response)
+            onClose()
+            onSuccess()
         })
         .catch((error) => {
             console.log(error)
-            setErr(error.response.data.error)
+            // setErr(error.response.data.error)
         })
     }
     return (

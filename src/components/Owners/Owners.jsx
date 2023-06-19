@@ -2,6 +2,7 @@ import AddOwner from '../../models/AddOwner/AddOwner'
 import { useState, useEffect } from 'react';
 import './Owners.css'
 import useCarOwners from '../../stores/OwnerOps';
+import Pagination from '../Pagination/Pagination';
 
 export default function Owners() {
 
@@ -11,6 +12,9 @@ export default function Owners() {
         getAllCarOwners,
         data
     } = useCarOwners();
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10; // Number of items to display per page
 
     function openModal() {
         setIsOpen(true)
@@ -25,53 +29,61 @@ export default function Owners() {
         getAllCarOwners()
     }, [])
 
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
+
+
     return (
         <div className="owners--container">
             {err && alert(`${err}`)}
-            <div className="div1">
-                <div className="header">
-                    <p>Owners</p>
-                    <button onClick={openModal}>Add New Owner</button>
-                    {isOpen ?
-                        <AddOwner onSuccess={() => [
-                            getAllCarOwners()
-                        ]} isOpen={openModal} onClose={closeModal} />
-                        : null}
-                </div>
-                <div className="table">
-                    <table id="myTable">
-                        <thead>
-                            <tr>
-                                <th>Names</th>
-                                <th>NID</th>
-                                <th>Phone Number</th>
-                                <th>Address</th>
-                                <th>Operations</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                data?.map((item) => {
-                                    return (
-                                        <tr>
-                                            <td>{item.fullnames}</td>
-                                            <td>{item.NID}</td>
-                                            <td>{item.phoneNumber}</td>
-                                            <td>{item.address}</td>
-                                            <td>
-                                                <a href="/owners/${item._id}/edit">Update</a>
-                                                <a href="#" >Delete</a>
-                                            </td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
+            <div className="header">
+                <p>Owners</p>
+                <button onClick={openModal}>Add New Owner</button>
+                {isOpen ?
+                    <AddOwner onSuccess={() => [
+                        getAllCarOwners()
+                    ]} isOpen={openModal} onClose={closeModal} />
+                    : null}
+            </div>
+            <div className="table">
+                <table id="myTable">
+                    <thead>
+                        <tr>
+                            <th>Names</th>
+                            <th>NID</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            data?.map((item) => {
+                                return (
+                                    <tr>
+                                        <td>{item.fullnames}</td>
+                                        <td>{item.NID}</td>
+                                        <td>{item.phoneNumber}</td>
+                                        <td>{item.address}</td>
+                                        <td>
+                                            <a href={`/owners/${item._id}/edit`}>Update</a>
+                                            <a href="#" >  Delete</a>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
 
-            {/* <div className="div2">
+            {/* Pagination */}
+            <div className="pagination">
+                <Pagination />
+            </div>
+
+            {/* <div className="div">
                 <div className="item">
                     {
                         data?.map((item) => {
