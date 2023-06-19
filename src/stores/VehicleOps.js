@@ -6,11 +6,12 @@ export default function setVehicles() {
     const [err, setErr] = useState('')
     const [data, setData] = useState([])
 
-    const getVehicles = async () => {
+    const getVehicles = async (count) => {
         try {
             const res = await axios.get("http://localhost:3000/api/vehicles/list", {
                 headers: {
-                    token: `Bearer ${authService.getAuthToken()}`
+                    token: `Bearer ${authService.getAuthToken()}`,
+                    count: count
                 }
             })
             setData(res.data.result)

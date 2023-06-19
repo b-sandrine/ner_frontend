@@ -15,6 +15,7 @@ export default function Owners() {
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10; // Number of items to display per page
+    const [count, setCount] = useState(1);
 
     function openModal() {
         setIsOpen(true)
@@ -26,8 +27,8 @@ export default function Owners() {
 
 
     useEffect(() => {
-        getAllCarOwners()
-    }, [])
+        getAllCarOwners(count)
+    }, [count])
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -80,7 +81,7 @@ export default function Owners() {
 
             {/* Pagination */}
             <div className="pagination">
-                <Pagination />
+                <Pagination count={count} setCount={setCount} />
             </div>
 
             {/* <div className="div">

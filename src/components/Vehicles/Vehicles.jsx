@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import './Vehicles.css'
 import AddVehicle from '../../models/AddVehicle/AddVehicle';
 import setVehicles from '../../stores/VehicleOps';
+import Pagination from '../Pagination/Pagination';
 
 const Vehicles = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     const { err, data, getVehicles } = setVehicles();
+    const [count, setCount] = useState(1)
 
     function openModal() {
         setIsOpen(true)
@@ -17,8 +19,8 @@ const Vehicles = () => {
     }
 
     useEffect(() => {
-        getVehicles()
-    }, [])
+        getVehicles(count)
+    }, [count])
 
     return (
         <div className="vehicles--container">
@@ -67,6 +69,9 @@ const Vehicles = () => {
                         }
                     </tbody>
                 </table>
+            </div>
+            <div className="pagination">
+                <Pagination count={count} setCount={setCount} />
             </div>
         </div>
     )

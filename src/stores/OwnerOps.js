@@ -6,11 +6,12 @@ export default function useCarOwners() {
     const [data, setData] = useState([]);
     const [err, setErr] = useState('');
 
-    const getAllCarOwners = async () => {
+    const getAllCarOwners = async (count) => {
         try {
             const res = await axios.get("http://localhost:3000/api/owners/list", {
                 headers: {
-                    token: `Bearer ${authService.getAuthToken()}`
+                    token: `Bearer ${authService.getAuthToken()}`,
+                    count: count
                 }
             });
             setData(res.data.result)

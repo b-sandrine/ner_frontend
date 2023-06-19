@@ -1,9 +1,7 @@
 import { HiArrowCircleLeft, HiArrowCircleRight } from 'react-icons/hi'
 import './Pagination.css'
-import { useState } from 'react'
 
-const Pagination = () => {
-    const [count, setCount] = useState(1);
+const Pagination = ({count,setCount}) => {
 
     const increaseCount = () => {
         setCount(count + 1)
