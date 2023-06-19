@@ -17,6 +17,7 @@ export default function setVehicles() {
             setData(res.data.result)
         }
         catch (error) {
+            console.log(error)
             setErr(error.response.data.error)
         }
     }

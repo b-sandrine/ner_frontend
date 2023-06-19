@@ -28,7 +28,7 @@ const Login = () => {
             authService.storeAuthToken(token)
         })
         .catch(err => {
-            console.log(err.response.data)
+            console.log(err)
             setErr(err.response.data.error)
         })
     }
